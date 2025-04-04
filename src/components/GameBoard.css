@@ -1,0 +1,246 @@
+.game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.grid-row {
+  display: flex;
+  gap: 2px;
+  justify-content: flex-start;
+  width: 100%;
+  padding-left: 8px;
+}
+
+.grid-12 .grid-row { width: calc(12 * 50px + 11 * 4px); }
+.grid-15 .grid-row { width: calc(15 * 50px + 14 * 4px); }
+.grid-20 .grid-row { width: calc(20 * 50px + 19 * 4px); }
+
+.cell {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.cell:hover {
+  background-color: #e9ecef;
+}
+
+/* Temporary selection (during drag) */
+.cell.temp-selected {
+  background-color: #cce5ff !important;
+  color: #333;
+  border: 1px solid #99ccff;
+  z-index: 2;
+}
+
+/* Permanent selection (after release) */
+.cell.selected {
+  background-color: #cce5ff;
+  color: #333;
+  border: 1px solid #99ccff;
+  z-index: 2;
+}
+
+/* Correct word */
+.cell.correct {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  text-decoration: line-through;
+  text-decoration-color: #155724;
+  text-decoration-thickness: 2px;
+  z-index: 2;
+}
+
+.cell.incorrect {
+  background-color: #ffcdd2;
+  color: #c62828;
+  box-shadow: 0 0 0 2px #c62828;
+  z-index: 1;
+  animation: shake 0.5s ease;
+}
+
+.cell.found {
+  background-color: #e9ecef;
+  color: #6c757d;
+  text-decoration: line-through;
+}
+
+.cell.found::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 3px;
+  background-color: #2e7d32;
+  transform: translateY(-50%);
+}
+
+.word-preview {
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.word-preview.valid {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+  box-shadow: 0 0 10px rgba(46, 125, 50, 0.3);
+}
+
+.word-preview.invalid {
+  background-color: #ffcdd2;
+  color: #c62828;
+  box-shadow: 0 0 10px rgba(198, 40, 40, 0.3);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Remove any special styling for first/last cells */
+.cell.selected:first-child,
+.cell.selected:last-child,
+.cell.correct:first-child,
+.cell.correct:last-child {
+  border: 1px solid #dee2e6;
+}
+
+/* Ensure consistent styling for all cells in a selection */
+.cell.selected,
+.cell.correct {
+  border-radius: 0;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1024px) {
+  .grid {
+    padding: 6px;
+  }
+
+  .grid-row {
+    padding-left: 6px;
+  }
+
+  .cell {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    padding: 5px;
+  }
+
+  .grid-row {
+    padding-left: 5px;
+  }
+
+  .cell {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    padding: 4px;
+  }
+
+  .grid-row {
+    padding-left: 4px;
+  }
+
+  .cell {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .cell {
+    border: 2px solid CanvasText;
+  }
+
+  .cell.selected {
+    border: 3px solid Highlight;
+  }
+
+  .cell.correct {
+    border: 3px solid LinkText;
+  }
+
+  .cell.incorrect {
+    border: 2px solid Mark;
+  }
+
+  .cell.found {
+    border: 3px solid LinkText;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    transition: none;
+  }
+
+  .word-preview {
+    transition: none;
+  }
+
+  .cell.correct,
+  .cell.incorrect {
+    animation: none;
+  }
+} 

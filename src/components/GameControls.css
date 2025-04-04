@@ -1,0 +1,115 @@
+.game-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-group label {
+  font-size: 0.9rem;
+  color: #2c3e50;
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.control-group select {
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  min-width: 120px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-group select:hover {
+  border-color: #90caf9;
+}
+
+.control-group select:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.new-game-btn {
+  padding: 8px 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.new-game-btn:hover {
+  background-color: #1565c0;
+  transform: translateY(-1px);
+}
+
+.new-game-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .game-controls {
+    gap: 12px;
+  }
+
+  .control-group {
+    gap: 8px;
+  }
+
+  .control-group label {
+    font-size: 0.85rem;
+    min-width: 70px;
+  }
+
+  .control-group select {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    min-width: 110px;
+  }
+
+  .new-game-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-controls {
+    gap: 10px;
+  }
+
+  .control-group {
+    gap: 6px;
+  }
+
+  .control-group label {
+    font-size: 0.8rem;
+    min-width: 60px;
+  }
+
+  .control-group select {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+    min-width: 100px;
+  }
+
+  .new-game-btn {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+} 
