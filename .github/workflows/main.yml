@@ -40,16 +40,17 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
-    steps:
-      - name: Display structure of downloaded files
-        run: ls -R ./dist
-        
+    steps:      
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: production-files
+          github-token: ${{ secrets.DEPLOY_NODEJS }}
           path: ./dist
 
+      - name: Display structure of downloaded files
+        run: ls -R ./dist
+        
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
